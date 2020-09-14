@@ -1,5 +1,4 @@
-This project installs into an Azure Function in your Azure subscription. Its job is to read NSG Flow Logs from your configured storage account, break the data into chunks that are the right size for your log analytics system to ingest, then transmit the chunks to that system. At present, you may choose from four output bindings: ArcSight, LogStash, Splunk HEC, Event Hub.  
-
+This is a forked version of the Microsoft AzureNetworkWatcherNSGFlowLogsConnector. For Splunk users, this will read NSG Flow logs from a configured storage account, break the data into clean JSON events, and fire events to a Splunk HEC endpoint. There is also the option of sending the events to an Azure Event Hub, which can be ingested into Splunk using the [Microsoft Azure Add-on] (https://splunkbase.splunk.com/app/3757/).
 
 [![Deploy to Azure](https://camo.githubusercontent.com/f880eed90750db7d23052ffb665803526cb46a59/68747470733a2f2f616b612e6d732f6465706c6f79746f617a757265627574746f6e)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FrySplunk%2FAzureNetworkWatcherNSGFlowLogsConnector%2Fmaster%2FNwNsgProject%2FazureDeploy.json)
 
