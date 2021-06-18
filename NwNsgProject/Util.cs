@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Formatting;
+using System.Net.Security;
 
 namespace nsgFunc
 {
@@ -113,7 +114,16 @@ namespace nsgFunc
 
             static SingleHttpClientInstance()
             {
-                HttpClient = new HttpClient();
+                var handler = new SocketsHttpHandler
+                {
+                    SslOptions = new SslClientAuthenticationOptions
+                    {
+                        RemoteCertificateValidationCallback = ValidateMyCert,
+                        EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12
+                    }
+                };
+
+                HttpClient = new HttpClient(handler);
                 HttpClient.Timeout = new TimeSpan(0, 1, 0);
             }
 

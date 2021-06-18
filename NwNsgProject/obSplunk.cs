@@ -38,9 +38,9 @@ namespace nsgFunc
                 return 0;
             }
 
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateMyCert);
+            //ServicePointManager.Expect100Continue = true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateMyCert);
 
             int bytesSent = 0;
 
@@ -103,18 +103,13 @@ namespace nsgFunc
 
         public static bool ValidateMyCert(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors sslErr)
         {
-            var splunkCertThumbprint = Util.GetEnvironmentVariable("splunkCertThumbprint");
+            return true;
 
-            // if user has not configured a cert, anything goes
-            if (splunkCertThumbprint == "")
-                return true;
+            //var splunkCertThumbprint = Util.GetEnvironmentVariable("splunkCertThumbprint");
 
-            // if user has configured a cert, must match
-            var thumbprint = cert.GetCertHashString();
-            if (thumbprint == splunkCertThumbprint)
-                return true;
+            //var thumbprint = cert.GetCertHashString();
 
-            return false;
-        }
-    }
+            //return sslErr == SslPolicyErrors.None || thumbprint.ToLower() == splunkCertThumbprint.ToLower();
+		}
+	}
 }
